@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brand Holdings - SourceQuest & Anomyo</title>
+    <title>{% block title %} Brand Holdings - SourceQuest & Anomyo {% endblock %}</title>
     <style>
         * {
             margin: 0;
@@ -469,6 +469,9 @@
                 font-size: 0.8rem;
             }
         }
+
+        {% block extra_css %}
+        {% endblock %}
     </style>
 </head>
 <body>
@@ -486,135 +489,14 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>Powering Business Excellence</h1>
-            <p>Discover our portfolio of innovative companies delivering cutting-edge solutions in garment sourcing and custom ERP systems</p>
-            <div class="cta-buttons">
-                <a href="#companies" class="btn btn-primary">Explore Companies</a>
-                <a href="#products" class="btn btn-secondary">View Products</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Companies Section -->
-    <section class="companies" id="companies">
-        <div class="container">
-            <h2 class="section-title">Our Companies</h2>
-            <div class="companies-grid">
-                <div class="company-card">
-                    <div class="company-logo">SQ</div>
-                    <h3>SourceQuest</h3>
-                    <p>Leading garment and accessories sourcing company providing high-quality products with global supply chain expertise. We connect brands with trusted manufacturers worldwide.</p>
-                    <a href="https://sourcequest.yourdomain.com" class="btn btn-primary">Visit SourceQuest</a>
-                </div>
-                <div class="company-card">
-                    <div class="company-logo">A</div>
-                    <h3>Anomyo</h3>
-                    <p>Custom ERP solutions provider specializing in tailored business management systems. We create powerful, scalable solutions that transform how businesses operate.</p>
-                    <a href="/anomyo" class="btn btn-primary">Explore Anomyo</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Products Section (SourceQuest) -->
-    <section class="products" id="products">
-        <div class="container">
-            <div class="products-header">
-                <h2 class="section-title">SourceQuest Products</h2>
-                <div class="category-filter">
-                    <button class="filter-btn active" onclick="filterProducts('all')">All Products</button>
-                    <button class="filter-btn" onclick="filterProducts('apparel')">Apparel</button>
-                    <button class="filter-btn" onclick="filterProducts('accessories')">Accessories</button>
-                    <button class="filter-btn" onclick="filterProducts('footwear')">Footwear</button>
-                    <button class="filter-btn" onclick="filterProducts('textiles')">Textiles</button>
-                </div>
-            </div>
-            <div class="products-grid" id="productsGrid">
-                <div class="product-card" data-category="apparel">
-                    <div class="product-image">👔</div>
-                    <div class="product-info">
-                        <div class="product-category">Apparel</div>
-                        <div class="product-title">Premium Business Shirts</div>
-                        <div class="product-price">$25 - $45</div>
-                    </div>
-                </div>
-                <div class="product-card" data-category="accessories">
-                    <div class="product-image">👜</div>
-                    <div class="product-info">
-                        <div class="product-category">Accessories</div>
-                        <div class="product-title">Designer Handbags</div>
-                        <div class="product-price">$50 - $200</div>
-                    </div>
-                </div>
-                <div class="product-card" data-category="footwear">
-                    <div class="product-image">👟</div>
-                    <div class="product-info">
-                        <div class="product-category">Footwear</div>
-                        <div class="product-title">Athletic Sneakers</div>
-                        <div class="product-price">$40 - $120</div>
-                    </div>
-                </div>
-                <div class="product-card" data-category="textiles">
-                    <div class="product-image">🧵</div>
-                    <div class="product-info">
-                        <div class="product-category">Textiles</div>
-                        <div class="product-title">Organic Cotton Fabrics</div>
-                        <div class="product-price">$8 - $25/yard</div>
-                    </div>
-                </div>
-                <div class="product-card" data-category="apparel">
-                    <div class="product-image">👗</div>
-                    <div class="product-info">
-                        <div class="product-category">Apparel</div>
-                        <div class="product-title">Casual Dresses</div>
-                        <div class="product-price">$30 - $80</div>
-                    </div>
-                </div>
-                <div class="product-card" data-category="accessories">
-                    <div class="product-image">⌚</div>
-                    <div class="product-info">
-                        <div class="product-category">Accessories</div>
-                        <div class="product-title">Fashion Watches</div>
-                        <div class="product-price">$75 - $300</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Reviews Section -->
-    <section class="reviews" id="reviews">
-        <div class="container">
-            <h2 class="section-title">Client Reviews</h2>
-            <div class="reviews-grid">
-                <div class="review-card">
-                    <div class="review-stars">★★★★★</div>
-                    <div class="review-text">"SourceQuest delivered exceptional quality garments on time. Their attention to detail and customer service is outstanding."</div>
-                    <div class="review-author">- Sarah Johnson, Fashion Brand CEO</div>
-                </div>
-                <div class="review-card">
-                    <div class="review-stars">★★★★★</div>
-                    <div class="review-text">"Anomyo's custom ERP solution transformed our business operations. Highly recommended for any growing company."</div>
-                    <div class="review-author">- Michael Chen, Operations Director</div>
-                </div>
-                <div class="review-card">
-                    <div class="review-stars">★★★★★</div>
-                    <div class="review-text">"Professional service, competitive pricing, and reliable delivery. SourceQuest is our go-to sourcing partner."</div>
-                    <div class="review-author">- Amanda Rodriguez, Retail Manager</div>
-                </div>
-            </div>
-        </div>
-    </section>
+    {% block content %} {% endblock %}
 
     <!-- Footer -->
     <footer class="footer" id="contact">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h4>Brand Holdings</h4>
+                    <h4>AS GROUP</h4>
                     <p>Delivering excellence through our portfolio of innovative companies.</p>
                 </div>
                 <div class="footer-section">
@@ -693,5 +575,7 @@
             }
         });
     </script>
+    {% block extra_js %}
+    {% endblock %}
 </body>
 </html>
