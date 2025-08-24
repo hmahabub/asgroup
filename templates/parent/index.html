@@ -1,18 +1,318 @@
 {% extends "base.html" %}
 
 {% load static %}
+
+{% block extra_css %}
+    <style>
+        
+        :root {
+            --primary: #6b1fad;
+            --secondary: #000000;
+            --accent: #ff6b6b;
+            --light: #f8f9fa;
+            --dark: #212529;
+        }
+
+        .hero-section {
+            min-height: 100vh;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            color: white;
+        }
+        
+        /* Bulb container */
+        .bulb-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        
+        /* Bulb styling */
+        .bulb {
+            position: absolute;
+            width: 60px;
+            height: 80px;
+            animation: float 6s infinite ease-in-out;
+            z-index: 2;
+        }
+        
+        .bulb::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 70%;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50% 50% 45% 45%;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8),
+                        inset 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+        
+        .bulb::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 15px;
+            background: rgba(255, 255, 255, 0.7);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 0 0 5px 5px;
+        }
+        
+        /* Bulb positions */
+        .bulb:nth-child(1) {
+            top: 20%;
+            left: 15%;
+            animation-delay: 0s;
+        }
+        
+        .bulb:nth-child(2) {
+            top: 60%;
+            left: 80%;
+            animation-delay: 1s;
+        }
+        
+        .bulb:nth-child(3) {
+            top: 30%;
+            left: 70%;
+            animation-delay: 2s;
+        }
+        
+        .bulb:nth-child(4) {
+            top: 70%;
+            left: 15%;
+            animation-delay: 3s;
+        }
+        
+        .bulb:nth-child(5) {
+            top: 15%;
+            left: 50%;
+            animation-delay: 4s;
+        }
+        
+        /* Connection lines */
+        .connections {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .line {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.9);
+            height: 2px;
+            transform-origin: left center;
+            animation: connect 8s infinite linear;
+        }
+        
+        /* Main content */
+        .hero-content {
+            position: relative;
+            z-index: 3;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.3s forwards;
+            opacity: 0;
+        }
+        
+        .hero-buttons {
+            animation: fadeInUp 1s ease-out 0.6s forwards;
+            opacity: 0;
+        }
+        
+        .btn-hero-primary {
+            background-color: var(--accent);
+            border-color: var(--accent);
+            color: white;
+            padding: 0.8rem 2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+        
+        .btn-hero-primary:hover {
+            background-color: transparent;
+            border-color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-hero-outline {
+            border-color: white;
+            color: white;
+            padding: 0.8rem 2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+        
+        .btn-hero-outline:hover {
+            background-color: white;
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Light effect for bulbs */
+        .bulb-light {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%);
+            filter: blur(5px);
+            animation: pulse 3s infinite alternate;
+            z-index: 1;
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-15px) translateX(10px) rotate(2deg);
+            }
+            66% {
+                transform: translateY(10px) translateX(-10px) rotate(-2deg);
+            }
+        }
+        
+        @keyframes connect {
+            0% {
+                transform: scaleX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            50% {
+                transform: scaleX(1);
+                opacity: 0.2;
+            }
+            90% {
+                opacity: 0.1;
+            }
+            100% {
+                transform: scaleX(0);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                opacity: 0.3;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 0.6;
+                transform: scale(1.2);
+            }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .btn-hero-primary, .btn-hero-outline {
+                padding: 0.6rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            
+            .bulb {
+                width: 40px;
+                height: 60px;
+            }
+        }
+    </style>
+    {% endblock %}
 {% block content %}
-<!-- Hero Section -->
-<section class="hero" id="home">
-    <div class="hero-content">
-        <h1>Website Building Going on</h1>
-        <p>This is Place holder for the website. Website construction going on.</p>
-        <div class="cta-buttons">
-            <a href="#companies" class="btn btn-primary">Explore Companies</a>
-            <a href="#products" class="btn btn-secondary">View Products</a>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <!-- Bulbs container -->
+        <div class="bulb-container">
+            <div class="bulb">
+                <div class="bulb-light" style="top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
+            </div>
+            <div class="bulb">
+                <div class="bulb-light" style="top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
+            </div>
+            <div class="bulb">
+                <div class="bulb-light" style="top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
+            </div>
+            <div class="bulb">
+                <div class="bulb-light" style="top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
+            </div>
+            <div class="bulb">
+                <div class="bulb-light" style="top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
+            </div>
         </div>
-    </div>
-</section>
+        
+        <!-- Connection lines -->
+        <div class="connections">
+            <div class="line" style="top: 25%; left: 18%; width: 62%; transform: rotate(10deg); animation-delay: 0s; opacity: .1;"></div>
+            <div class="line" style="top: 33%; left: 72%; width: 15%; transform: rotate(-15deg); animation-delay: 2s; opacity: .1"></div>
+            <div class="line" style="top: 65%; left: 18%; width: 62%; transform: rotate(-5deg); animation-delay: 2s; opacity: .1"></div>
+            <div class="line" style="top: 20%; left: 52%; width: 30%; transform: rotate(25deg); animation-delay: 3s;opacity: .1;"></div>
+            <div class="line" style="top: 75%; left: 30%; width: 50%; transform: rotate(15deg); animation-delay: 4s;opacity: .1;"></div>
+        </div>
+        
+        <!-- Main content -->
+        <div class="container hero-content">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8">
+                    <h1 class="hero-title">Connecting <span class="text-warning">Ideas</span>, <br>Creating <span class="text-warning">Innovation</span></h1>
+                    <p class="hero-subtitle">Bringing together diverse perspectives to solve complex challenges and build a better future through collaboration.</p>
+                    <div class="hero-buttons">
+                        <a href="#companies" class="btn btn-hero-primary me-3">
+                            <i class="fas fa-plug me-2"></i>Companies
+                        </a>
+                        <a href="#products" class="btn btn-hero-outline">
+                            <i class="fas fa-lightbulb me-2"></i>Explore Products
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 <!-- Companies Section -->
 <section class="companies" id="companies">
@@ -28,8 +328,20 @@
             <div class="company-card">
                 <div class="company-logo">A</div>
                 <h3>Anomyo</h3>
-                <p>Custom ERP solutions provider specializing in tailored business management systems. We create powerful, scalable solutions that transform how businesses operate.</p>
-                <a href="/anomyo" class="btn btn-primary">Explore Anomyo</a>
+                <p>Sustainable Clothing Brand for a Better Tomorrow</p>
+                <a href="/Anomyo" class="btn btn-primary">Explore Anomyo</a>
+            </div>
+            <div class="company-card">
+                <div class="company-logo">N</div>
+                <h3>NoorSys</h3>
+                <p>From ERP implementation to website development and digital marketing, we empower companies with the tools you need to thrive in the digital age.</p>
+                <a href="/NoorSys" class="btn btn-primary">Explore NoorSys</a>
+            </div>
+            <div class="company-card">
+                <div class="company-logo">O</div>
+                <h3>OoDriSho</h3>
+                <p>innovative consumer-to-consumer (C2C) marketplace where people can sell, trade, and purchase items they need.</p>
+                <a href="/OoDriSho" class="btn btn-primary">Explore OoDriSho</a>
             </div>
         </div>
     </div>
@@ -48,15 +360,18 @@
                 <button class="filter-btn" onclick="filterProducts('textiles')">Textiles</button>
             </div>
         </div>
+        
         <div class="products-grid" id="productsGrid">
-            <div class="product-card" data-category="apparel">
-                <div class="product-image">👔</div>
+            {% for product in products %}
+            <div class="product-card" data-category="{{product.category}}">
+                <div class="product-image"><img src=""></div>
                 <div class="product-info">
-                    <div class="product-category">Apparel</div>
-                    <div class="product-title">Premium Business Shirts</div>
-                    <div class="product-price">$25 - $45</div>
+                    <div class="product-category">{{product.category}}</div>
+                    <div class="product-title">{{product.title}}</div>
+                    <div class="product-price">${{product.price_min}} - ${{product.price_max}} </div>
                 </div>
             </div>
+            {% endfor %}
             <div class="product-card" data-category="accessories">
                 <div class="product-image">👜</div>
                 <div class="product-info">
@@ -125,4 +440,10 @@
     </div>
 </section>
 
+{% endblock %}
+
+{% block extra_js%}
+    <!-- Bootstrap & Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 {% endblock %}
